@@ -1,12 +1,22 @@
 import { Router } from 'express';
+import { getRepository } from 'typeorm';
 
+import User from '../models/User';
 import CreateUsersServices from '../services/CreateUsersServices';
 
 const usersRouter = Router();
 
+usersRouter.get('/', async (req, res) => {
+  const usersRepository = getRepository(User);
+  const user = await usersRepository.find();
+
+  return res.json(user);
+});
+
 usersRouter.post('/', async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
 
     const createUser = new CreateUsersServices();
 
