@@ -20,23 +20,19 @@ usersRouter.get('/', async (req, res) => {
 });
 
 usersRouter.post('/', async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
+  const { name, email, password } = req.body;
 
-    const createUser = new CreateUsersServices();
+  const createUser = new CreateUsersServices();
 
-    const user = await createUser.execute({
-      name,
-      email,
-      password,
-    });
+  const user = await createUser.execute({
+    name,
+    email,
+    password,
+  });
 
-    delete user.password;
+  delete user.password;
 
-    return res.send(user);
-  } catch (err) {
-    return res.status(400).json({ error: err.message });
-  }
+  return res.send(user);
 });
 
 usersRouter.patch(
@@ -46,20 +42,16 @@ usersRouter.patch(
   async (req, res) => {
     // console.log(req.file); // req.file.size contain the file size for validation
 
-    try {
-      const updateUserAvatar = new UpdateUserAvatarServices();
+    const updateUserAvatar = new UpdateUserAvatarServices();
 
-      const user = await updateUserAvatar.execute({
-        user_id: req.user.id,
-        avatarFilename: req.file.filename,
-      });
+    const user = await updateUserAvatar.execute({
+      user_id: req.user.id,
+      avatarFilename: req.file.filename,
+    });
 
-      delete user.password;
+    delete user.password;
 
-      return res.json(user);
-    } catch (err) {
-      return res.status(400).json({ err: err.message });
-    }
+    return res.json(user);
   }
 );
 
