@@ -15,6 +15,16 @@ class AppointmentsRepository implements IAppointmentsRepository {
 
 // @EntityRepository(Appointment)
 // class AppointmentsRepository implements IAppointmentsRepository{
+  // public async findByID(id: string): Promise<Appointment> {
+  //   const appointment = await this.ormRepository.findByIds(id);
+
+  //   if (!appointment) {
+  //     throw new Error('Appointment not found');
+  //   }
+
+  //   return appointment;
+  // }
+
   public async findByDate(date: Date): Promise<Appointment | undefined> {
     const findAppointment = await this.ormRepository.findOne({
       where: { date },
