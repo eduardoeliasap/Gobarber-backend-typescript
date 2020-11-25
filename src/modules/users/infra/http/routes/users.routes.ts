@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { getRepository } from 'typeorm';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
+import { container } from 'tsyringe';
 
 //import User from '@modules/users/infra/typeorm/entities/User';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
@@ -23,8 +24,9 @@ usersRouter.get('/', async (req, res) => {
 usersRouter.post('/', async (req, res) => {
   const { name, email, password } = req.body;
 
-  const usersRepository = new UsersRepository();
-  const createUser = new CreateUsersServices(usersRepository);
+  // const usersRepository = new UsersRepository();
+  // const createUser = new CreateUsersServices(usersRepository);
+  const createUser = container.resolve(CreateUsersServices);
 
   const user = await createUser.execute({
     name,
@@ -44,8 +46,9 @@ usersRouter.patch(
   async (req, res) => {
     // console.log(req.file); // req.file.size contain the file size for validation
 
-    const usersRepository = new UsersRepository();
-    const updateUserAvatar = new UpdateUserAvatarServices(usersRepository);
+    // const usersRepository = new UsersRepository();
+    // const updateUserAvatar = new UpdateUserAvatarServices(usersRepository);
+    const updateUserAvatar = container.resolve(UpdateUserAvatarServices);
 
     const user = await updateUserAvatar.execute({
       user_id: req.user.id,

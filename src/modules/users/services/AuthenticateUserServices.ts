@@ -3,6 +3,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import IUserRepository from '../repositories/IUserRepository';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
@@ -18,8 +19,10 @@ interface Response {
   token: string;
 }
 
+@injectable()
 class AuthenticateUserServices {
   constructor(
+    @inject('UsersRepository')
     private userRepository: IUserRepository) {}
 
   public async execute({ email, password }: Request): Promise<Response> {
