@@ -12,18 +12,6 @@ class UsersRepository implements IUsersRepository {
     this.ormRepository = getRepository(User);
   }
 
-// @EntityRepository(User)
-// class UsersRepository implements IUsersRepository{
-  // public async findByDate(date: Date): Promise<User | undefined> {
-  //   const findUser = await this.ormRepository.findOne({
-  //     where: { date },
-  //   });
-
-  //   return findUser || undefined;
-  // }
-
-
-
   public async findByID(id: string): Promise<User | undefined> {
     const user = await this.ormRepository.findOne(id);
 
