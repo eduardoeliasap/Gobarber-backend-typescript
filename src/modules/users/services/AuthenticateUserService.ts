@@ -26,7 +26,7 @@ class AuthenticateUserServices {
     @inject('UsersRepository')
     private userRepository: IUserRepository,
 
-    @inject('HashRepository')
+    @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
 
